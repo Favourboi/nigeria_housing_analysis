@@ -7,7 +7,7 @@ This project analyzes the Nigeria housing dataset using R. It includes:
 
 ## Files
 - `housing_analysis.R`: Main R script with all analyses
-- `nigeria_houses_data.csv`
+- `nigeria_houses_data.csv` : Dataset
 
 ## Requirements
 - R
