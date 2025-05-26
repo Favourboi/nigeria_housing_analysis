@@ -3,7 +3,7 @@ library(tidyverse)
 library(skimr)
 
 # Load the dataset
-housing_data <- read.csv("C:\\Users\\DELL\\Documents\\favoured\\datasets\\nigeria_houses_data.csv")
+housing_data <- read.csv("datasets\\nigeria_houses_data.csv")
 
 # Summary statistics
 summary(housing_data)
