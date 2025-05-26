@@ -47,6 +47,9 @@ reg_predictions <- predict(lm_model, housing_data)
 final_data <- cbind(Actual = housing_data$price, Predicted =reg_predictions)
 final_data <- as.data.frame(final_data)
 
+# Load visualization packages
+library(ggplot2)
+
 ggplot(data.frame(actual = housing_data$price, predicted = reg_predictions),
        aes(x = actual, y = predicted)) + 
   geom_point() +
@@ -55,8 +58,6 @@ ggplot(data.frame(actual = housing_data$price, predicted = reg_predictions),
   labs(title = 'Linear Regression: Predicted vs Actual Prices', 
        x = "Actual Price (NGN)", y = "Predicted Price (NGN)")
 
-# Load visualization packages
-library(ggplot2)
 
 # Histogram of price
 ggplot(housing_data, aes(x = price)) +
