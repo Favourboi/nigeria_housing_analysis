@@ -108,7 +108,7 @@ test_data <- housing_data_clean[-trainIndex, ]
 
 # Random Forest for price prediction
 rf_model <- randomForest(price ~ bedrooms + bathrooms + toilets + parking_space + title + state, 
-                         data = train_data, ntree = 100)
+                         data = train_data, ntree = 100, importance = TRUE)
 predictions <- predict(rf_model, test_data)
 final_data1 <- cbind(Actual = test_data$price, Predicted =predictions)
 final_data1 <- as.data.frame(final_data1)
@@ -118,6 +118,26 @@ print(paste("RMSE:", rmse))
 
 # Feature importance
 varImpPlot(rf_model)
+
+# Extract feature importance
+rf_importance <- importance(rf_model, type = 1)  # Type 1 for %IncMSE
+rf_importance_df <- data.frame(
+  Feature = rownames(rf_importance),
+  Importance = rf_importance[, "%IncMSE"]
+)
+
+# Plot feature importance using ggplot2
+rf_plot <- ggplot(rf_importance_df, aes(x = reorder(Feature, Importance), y = Importance)) +
+  geom_bar(stat = "identity", fill = "#1f77b4") +
+  coord_flip() +
+  theme_minimal() +
+  labs(title = "Random Forest Feature Importance",
+       x = "Feature",
+       y = "% Increase in MSE") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+# Display plot
+print(rf_plot)
 
 # XGBoost for price prediction
 xgb_data <- model.matrix(price ~ bedrooms + bathrooms + toilets + parking_space + title + state, 
